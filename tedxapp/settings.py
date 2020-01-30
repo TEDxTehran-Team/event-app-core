@@ -18,6 +18,7 @@ INSTALLED_APPS = [
 
     "apps.utils",
     "apps.organizers",
+    "apps.locations",
     "apps.events",
 ]
 
