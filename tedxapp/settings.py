@@ -16,7 +16,9 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
 
-    "apps.organizers"
+    "apps.utils",
+    "apps.organizers",
+    "apps.events",
 ]
 
 MIDDLEWARE = [
