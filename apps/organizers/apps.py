@@ -1,7 +1,7 @@
 from django.apps import AppConfig
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 
 class OrganizersConfig(AppConfig):
-    name = 'tedxapp.organizers'
+    name = 'apps.organizers'
     verbose_name = _(u'Organizers')
