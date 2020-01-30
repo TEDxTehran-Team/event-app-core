@@ -4,11 +4,14 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 
-from apps.utils.models import BaseModel
+from apps.utils.models import BaseModel, Link
 from apps.organizers.models import Organizer
 
 
 class Event(BaseModel):
+    """
+    Represents an event, hold by an organizer. This is all the system is about!
+    """
     title = models.CharField(
         max_length=255,
         verbose_name=_('title'),
@@ -37,7 +40,14 @@ class Event(BaseModel):
 
     # todo create event type model
 
-    # todo create a event links model with proper and dynamic roles
+    links = models.ManyToManyField(
+        to=Link,
+        related_name='+',
+        verbose_name=_('links'),
+        help_text=_(
+            "a set of links related to this event, such as website link, registration link, etc."),
+        blank=True
+    )
 
     organizer = models.ForeignKey(
         to=Organizer,
