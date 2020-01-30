@@ -1,12 +1,16 @@
 import uuid
 
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from safedelete import SOFT_DELETE_CASCADE
 from safedelete.models import SafeDeleteModel
 
 
 class BaseModel(SafeDeleteModel):
+    """
+    An abstract class with slug and timestamps, the fields we need for most of our classes.
+    """
     _safedelete_policy = SOFT_DELETE_CASCADE
 
     slug = models.UUIDField(
@@ -28,6 +32,9 @@ class BaseModel(SafeDeleteModel):
 
 
 class Link(BaseModel):
+    """
+    Merely a humble model, showing a simple link, to be used by other moldels whenever needed.
+    """
     title = models.CharField(
         max_length=255,
         verbose_name=_('title'),
@@ -47,6 +54,13 @@ class Link(BaseModel):
     url = models.URLField(
         verbose_name=_('url'),
         help_text=_('the url address for the link.')
+    )
+    created_by = models.ForeignKey(
+        to=User,
+        related_name='+',
+        on_delete=models.CASCADE,
+        verbose_name=_('user'),
+        help_text=_("who has created the link?")
     )
 
     class Meta:
