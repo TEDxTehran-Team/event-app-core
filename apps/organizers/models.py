@@ -21,6 +21,12 @@ class Organizer(BaseModel):
         blank=True,
         null=True
     )
+    logo = models.ImageField(
+        verbose_name=_('logo'),
+        help_text=_("organizer's logo"),
+        blank=True,
+        null=True
+    )
 
     class Meta:
         verbose_name = _("organizer")
