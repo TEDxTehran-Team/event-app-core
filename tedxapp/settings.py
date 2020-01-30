@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "apps.organizers",
     "apps.locations",
     "apps.events",
+    "apps.timelines",
 ]
 
 MIDDLEWARE = [
