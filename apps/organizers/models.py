@@ -1,11 +1,11 @@
-import uuid
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
+from apps.utils.models import BaseModel
 
-class Organizer(models.Model):
+
+class Organizer(BaseModel):
     """
     Stores an Event organizer, which may have many accounts and users who manage them. e.g. TEDxTehran.
     """
@@ -21,11 +21,6 @@ class Organizer(models.Model):
         blank=True,
         null=True
     )
-    slug = models.UUIDField(
-        unique=True,
-        default=uuid.uuid4,
-        editable=False
-    )
 
     class Meta:
         verbose_name = _("organizer")
@@ -33,7 +28,7 @@ class Organizer(models.Model):
         ordering = ["title"]
 
 
-class OrganizerAccount(models.Model):
+class OrganizerAccount(BaseModel):
     """
     Represents a user's access to an organizer's events in admin.
     """
