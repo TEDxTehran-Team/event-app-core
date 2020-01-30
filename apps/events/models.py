@@ -34,8 +34,6 @@ class EventType(BaseModel):
         verbose_name = _("event type")
         verbose_name_plural = _("event types")
         ordering = ["title"]
-        # make it abstract until it's complete!
-        abstract = True
 
     def __str__(self):
         return self.title
@@ -68,8 +66,18 @@ class Event(BaseModel):
         blank=True,
         null=True
     )
-
-    # todo create event type model
+    start_date = models.DateTimeField(
+        verbose_name=_('start date'),
+        help_text=_("shows the staring date and time for event."),
+        blank=True,
+        null=True
+    )
+    end_date = models.DateTimeField(
+        verbose_name=_('end date'),
+        help_text=_("shows the ending date and time for event."),
+        blank=True,
+        null=True
+    )
 
     links = models.ManyToManyField(
         to=Link,
@@ -88,6 +96,15 @@ class Event(BaseModel):
         blank=True,
         null=True
     )
+    event_type = models.ForeignKey(
+        to=EventType,
+        related_name='events',
+        verbose_name=_('event type'),
+        help_text=_("does this event have any specific type?"),
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
     organizer = models.ForeignKey(
         to=Organizer,
         related_name='events',
@@ -100,8 +117,6 @@ class Event(BaseModel):
         verbose_name = _("event")
         verbose_name_plural = _("events")
         ordering = ["created_at", "title"]
-        # make it abstract until it's complete!
-        abstract = True
 
     def __str__(self):
         return self.title
