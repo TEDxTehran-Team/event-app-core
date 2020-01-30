@@ -2,25 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
-from apps.utils.models import BaseModel
+from apps.utils.models import BaseModel, OrderedModelMixin, DescribedModelMixin
 
 
-class Organizer(BaseModel):
+class Organizer(BaseModel, DescribedModelMixin):
     """
     Stores an Event organizer, which may have many accounts and users who manage them. e.g. TEDxTehran.
     """
-    title = models.CharField(
-        verbose_name=_("title"),
-        help_text=_("name of the current organizer. e.g. TEDxTehran."),
-        max_length=255,
-        unique=True
-    )
-    description = models.TextField(
-        verbose_name=_("description"),
-        help_text=_("a few paragraphs of info about the current organizer."),
-        blank=True,
-        null=True
-    )
     logo = models.ImageField(
         verbose_name=_('logo'),
         help_text=_("organizer's logo"),
@@ -58,3 +46,27 @@ class OrganizerAccount(BaseModel):
         verbose_name = _("organizer account")
         verbose_name_plural = _("organizers accounts")
         ordering = ["organizer", "user"]
+
+
+class AboutOrganizer(BaseModel, OrderedModelMixin, DescribedModelMixin):
+    organizer = models.ForeignKey(
+        Organizer,
+        related_name='abouts',
+        on_delete=models.CASCADE,
+        verbose_name=_('organizer'),
+        help_text=_("the organizer we're giving the info about.")
+    )
+    image = models.ImageField(
+        verbose_name=_('image'),
+        help_text=_("an optional image for the 'about' section."),
+        blank=True,
+        null=True
+    )
+
+    class Meta:
+        verbose_name = _("About")
+        verbose_name_plural = _("Abouts")
+        ordering = ["organizer", "ordering"]
+
+    def __str__(self):
+        return self.title

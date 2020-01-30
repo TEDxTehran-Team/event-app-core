@@ -2,26 +2,15 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 
-from apps.utils.models import BaseModel, Link
+from apps.utils.models import BaseModel, Link, OrderedModelMixin, DescribedModelMixin
 from apps.organizers.models import Organizer
 from apps.locations.models import Venue
 
 
-class EventType(BaseModel):
+class EventType(BaseModel, DescribedModelMixin):
     """
     Represents an event type, as each organizer may hold many different events.
     """
-    title = models.CharField(
-        max_length=255,
-        verbose_name=_('title'),
-        help_text=_("event's main title.")
-    )
-    description = models.TextField(
-        verbose_name=_('description'),
-        help_text=_("a description about event, shown in the applications."),
-        blank=True,
-        null=True
-    )
     organizer = models.ForeignKey(
         to=Organizer,
         related_name='event_types',
@@ -39,21 +28,10 @@ class EventType(BaseModel):
         return self.title
 
 
-class Event(BaseModel):
+class Event(BaseModel, DescribedModelMixin):
     """
     Represents an event, hold by an organizer. This is all the system is about!
     """
-    title = models.CharField(
-        max_length=255,
-        verbose_name=_('title'),
-        help_text=_("event's main title.")
-    )
-    description = models.TextField(
-        verbose_name=_('description'),
-        help_text=_("a description about event, shown in the applications."),
-        blank=True,
-        null=True
-    )
     logo = models.ImageField(
         verbose_name=_('logo'),
         help_text=_("event official logo"),
@@ -117,6 +95,30 @@ class Event(BaseModel):
         verbose_name = _("event")
         verbose_name_plural = _("events")
         ordering = ["created_at", "title"]
+
+    def __str__(self):
+        return self.title
+
+
+class AboutEvent(BaseModel, OrderedModelMixin, DescribedModelMixin):
+    organizer = models.ForeignKey(
+        Event,
+        related_name='abouts',
+        on_delete=models.CASCADE,
+        verbose_name=_('event'),
+        help_text=_("the event we're giving the info about.")
+    )
+    image = models.ImageField(
+        verbose_name=_('image'),
+        help_text=_("an optional image for the 'about' section."),
+        blank=True,
+        null=True
+    )
+
+    class Meta:
+        verbose_name = _("about event")
+        verbose_name_plural = _("abouts on events")
+        ordering = ["organizer", "ordering"]
 
     def __str__(self):
         return self.title

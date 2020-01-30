@@ -3,23 +3,11 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 
-from apps.utils.models import BaseModel, Link
+from apps.utils.models import BaseModel, DescribedModelMixin
 from apps.organizers.models import Organizer
 
 
-class Venue(BaseModel):
-    title = models.CharField(
-        max_length=255,
-        verbose_name=_('title'),
-        help_text=_("venue's title.")
-    )
-    description = models.TextField(
-        max_length=1023,
-        verbose_name=_('description'),
-        help_text=_("an optional description about the venue."),
-        blank=True,
-        null=True
-    )
+class Venue(BaseModel, DescribedModelMixin):
     adddress = models.TextField(
         max_length=1023,
         verbose_name=_('address'),
@@ -41,7 +29,8 @@ class Venue(BaseModel):
     )
     map_link = models.URLField(
         verbose_name=_('map link'),
-        help_text=_("a link to venue's location on the map (e.g. google map link)."),
+        help_text=_(
+            "a link to venue's location on the map (e.g. google map link)."),
         blank=True,
         null=True
     )
@@ -53,7 +42,8 @@ class Venue(BaseModel):
     )
     website = models.URLField(
         verbose_name=_('website'),
-        help_text=_("a link to the venue's website, or any social page (e.g. in Instagram)."),
+        help_text=_(
+            "a link to the venue's website, or any social page (e.g. in Instagram)."),
         blank=True,
         null=True
     )

@@ -9,7 +9,7 @@ from safedelete.models import SafeDeleteModel
 
 class BaseModel(SafeDeleteModel):
     """
-    An abstract class with slug and timestamps, the fields we need for most of our classes.
+    An abstract model with slug and timestamps, the fields we need for most of our classes.
     """
     _safedelete_policy = SOFT_DELETE_CASCADE
 
@@ -31,7 +31,36 @@ class BaseModel(SafeDeleteModel):
         abstract = True
 
 
-class Link(BaseModel):
+class OrderedModelMixin(models.Model):
+    """
+    An abstract model mixin, containing an field for ordering.
+    """
+    ordering = models.SmallIntegerField(
+        verbose_name=_("ordering"),
+        help_text=_("the object's position, in relation to it's siblings."),
+        default=0
+    )
+
+    class Meta:
+        abstract = True
+
+
+class DescribedModelMixin(models.Model):
+    title = models.CharField(
+        max_length=255,
+        verbose_name=_('title')
+    )
+    description = models.TextField(
+        verbose_name=_('description'),
+        blank=True,
+        null=True
+    )
+
+    class Meta:
+        abstract = True
+
+
+class Link(BaseModel, OrderedModelMixin):
     """
     Merely a humble model, showing a simple link, to be used by other moldels whenever needed.
     """
@@ -66,7 +95,7 @@ class Link(BaseModel):
     class Meta:
         verbose_name = _("link")
         verbose_name_plural = _("links")
-        ordering = ['created_at']
+        ordering = ['ordering', 'created_at']
 
     def __str__(self):
         if self.title:
@@ -74,4 +103,4 @@ class Link(BaseModel):
         elif self.role:
             return self.role
         else:
-            return self.url[:63]+'...'
+            return self.ur1
