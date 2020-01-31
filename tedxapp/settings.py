@@ -1,3 +1,4 @@
+from .local_settings import *
 import os
 
 import datetime
@@ -17,10 +18,16 @@ INSTALLED_APPS = [
     "corsheaders",
 
     "apps.utils",
+    "apps.applications",
     "apps.organizers",
     "apps.locations",
     "apps.events",
     "apps.timelines",
+    "apps.activities",
+    "apps.talks",
+    "apps.gallery",
+    "apps.notifications",
+    "apps.attendees",
 ]
 
 MIDDLEWARE = [
@@ -81,7 +88,8 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = "staticfiles"
 STATICFILES_DIRS = (
-    os.path.join(os.path.dirname(__file__), "..", "static/").replace("\\", "/"),
+    os.path.join(os.path.dirname(__file__), "..",
+                 "static/").replace("\\", "/"),
 )
 
 STATICFILES_FINDERS = (
@@ -90,7 +98,8 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.DefaultStorageFinder",
 )
 
-MEDIA_ROOT = os.path.join(os.path.dirname(__file__), "..", "media/").replace("\\", "/")
+MEDIA_ROOT = os.path.join(os.path.dirname(
+    __file__), "..", "media/").replace("\\", "/")
 MEDIA_URL = "/media/"
 
 LOCALE_PATHS = [
@@ -127,5 +136,3 @@ CORS_ALLOW_HEADERS = (
     "x-requested-with",
     "x-api-key",
 )
-
-from .local_settings import *
