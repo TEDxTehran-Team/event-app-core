@@ -9,9 +9,9 @@ from apps.organizers.models import Organizer
 
 
 class Application(BaseModel, DescribedModelMixin):
-    is_active = models.BooleanField(
+    active = models.BooleanField(
         default=True,
-        verbose_name=_('is active'),
+        verbose_name=_('active'),
         help_text=_("is the application currently active and functional?")
     )
     organizer = models.ForeignKey(
