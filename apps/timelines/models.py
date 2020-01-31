@@ -3,7 +3,6 @@ from django.db import models
 from django.utils.translation import ugettext as _
 
 from apps.utils.models import BaseModel, OrderedModelMixin, DescribedModelMixin
-from apps.organizers.models import Organizer
 from apps.locations.models import Venue
 from apps.events.models import Event
 from .settings import SectionType
@@ -63,7 +62,9 @@ class Session(BaseModel, DescribedModelMixin):
         return self.title
 
 
-class Section(BaseModel, DescribedModelMixin):
+class Section(BaseModel, OrderedModelMixin, DescribedModelMixin):
+    DEAFAULT_TYPE = SectionType.GENERIC
+
     event = models.ForeignKey(
         Event,
         related_name='sections',
@@ -91,10 +92,15 @@ class Section(BaseModel, DescribedModelMixin):
         blank=True,
         null=True
     )
+    cover = models.ImageField(
+        verbose_name=_('cover'),
+        help_text=_("an optional cover to show in section page."),
+        blank=True,
+        null=True
+    )
     type = models.CharField(
         max_length=31,
         choices=SectionType.choices,
-        default=SectionType.GENERIC,
         verbose_name=_('type'),
         help_text=_(
             "shows type of this program section, whether it's a generic section, a talk or performance, an activity, or else.")
@@ -103,7 +109,11 @@ class Section(BaseModel, DescribedModelMixin):
     class Meta:
         verbose_name = _("section")
         verbose_name_plural = _("sections")
-        ordering = ["event", "start_time", "end_time"]
+        ordering = ["event", "start_time", "ordering"]
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.type = self.DEAFAULT_TYPE
+        return super().save(*args, **kwargs)
