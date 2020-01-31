@@ -3,15 +3,13 @@ from django.utils.translation import ugettext as _
 
 from apps.utils.models import BaseModel, OrderedModelMixin, DescribedModelMixin
 from apps.organizers.models import Organizer
-from apps.locations.models import Venue
-from apps.events.models import Event
 from apps.timelines.models import Section
 from apps.timelines.settings import SectionType
 
 
 class Speaker(BaseModel, DescribedModelMixin):
     organizer = models.ForeignKey(
-        Organizer,
+        to=Organizer,
         related_name='speakers',
         verbose_name=_('organizer'),
         help_text=_("to which organizer does the speaker belong?"),
@@ -37,7 +35,7 @@ class Talk(Section):
     DEFAULT_TYPE = SectionType.TALK
 
     speakers = models.ManyToManyField(
-        Speaker,
+        to=Speaker,
         related_name='speakers',
         verbose_name=_('speakers'),
         help_text=_("which speaker(s) will be giving the talk?"),
