@@ -87,21 +87,29 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATIC_ROOT = "staticfiles"
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(os.path.dirname(__file__), "..",
-                 "static/").replace("\\", "/"),
+    os.path.join(
+        os.path.dirname(__file__),
+        '..', 
+        'static/'
+    ).replace('\\', '/'),
 )
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+MEDIA_ROOT = BASE_DIR + '/media'
+MEDIA_URL = '/media/'
 
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "django.contrib.staticfiles.finders.DefaultStorageFinder",
+    # "django.contrib.staticfiles.finders.DefaultStorageFinder",
 )
-
-MEDIA_ROOT = os.path.join(os.path.dirname(
-    __file__), "..", "media/").replace("\\", "/")
-MEDIA_URL = "/media/"
 
 LOCALE_PATHS = [
     BASE_DIR + "/locale/",
