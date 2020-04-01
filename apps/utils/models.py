@@ -69,7 +69,8 @@ class Link(BaseModel, OrderedModelMixin):
         max_length=31,
         verbose_name=_('role'),
         help_text=_(
-            'an optional slug, describing the link for other programs, such as applications.'),
+            'an optional slug, describing the link for other programs, such as applications.'
+        ),
         blank=True,
         null=True
     )
@@ -82,7 +83,9 @@ class Link(BaseModel, OrderedModelMixin):
         related_name='+',
         on_delete=models.CASCADE,
         verbose_name=_('user'),
-        help_text=_("who has created the link?")
+        help_text=_("who has created the link?"),
+        blank=True,
+        null=True
     )
 
     class Meta:

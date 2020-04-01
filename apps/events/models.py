@@ -62,7 +62,8 @@ class Event(BaseModel, DescribedModelMixin):
         related_name='+',
         verbose_name=_('links'),
         help_text=_(
-            "a set of links related to this event, such as website link, registration link, etc."),
+            "a set of links related to this event, such as website link, registration link, etc."
+        ),
         blank=True
     )
     venue = models.ForeignKey(
