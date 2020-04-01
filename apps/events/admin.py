@@ -24,7 +24,7 @@ class EventLinkInline(admin.TabularInline):
     extra = 1
     exclude = [
         'ordering',
-        'user'
+        'created_by'
     ]
 
 
