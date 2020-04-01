@@ -42,7 +42,7 @@ MIDDLEWARE = [
     "apps.applications.middleware.ApplicationMiddleware",
 ]
 
-ROOT_URLCONF = "tedxapp.urls"
+ROOT_URLCONF = "event_app.urls"
 
 TEMPLATES = [
     {
@@ -61,7 +61,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "tedxapp.wsgi.application"
+WSGI_APPLICATION = "event_app.wsgi.application"
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -90,7 +90,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(
         os.path.dirname(__file__),
-        '..', 
+        '..',
         'static/'
     ).replace('\\', '/'),
 )
@@ -122,7 +122,7 @@ JWT_AUTH = {
     "JWT_ALLOW_REFRESH": True,
 }
 
-FIXTURE_DIRS = ("tedxapp/fixtures/",)
+FIXTURE_DIRS = ("event_app/fixtures/",)
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_HEADERS = (
@@ -139,5 +139,5 @@ CORS_ALLOW_HEADERS = (
 )
 
 GRAPHENE = {
-    'SCHEMA': 'tedxapp.schema.schema'
+    'SCHEMA': 'event_app.schema.schema'
 }
