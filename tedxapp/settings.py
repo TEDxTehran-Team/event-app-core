@@ -137,3 +137,7 @@ CORS_ALLOW_HEADERS = (
     "x-requested-with",
     "x-api-key",
 )
+
+GRAPHENE = {
+    'SCHEMA': 'texapp.schema.schema'
+}
