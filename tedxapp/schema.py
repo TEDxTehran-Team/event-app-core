@@ -1,9 +1,10 @@
 import graphene
 
 from apps.organizers.schema import OrganizersQuery
+from apps.events.schema import EventsQuery
 
 
-class Query(OrganizersQuery, graphene.ObjectType):
+class Query(OrganizersQuery, EventsQuery, graphene.ObjectType):
     pass
 
 
