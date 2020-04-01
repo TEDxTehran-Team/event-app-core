@@ -67,15 +67,16 @@ class Section(BaseModel, OrderedModelMixin, DescribedModelMixin):
     event = models.ForeignKey(
         Event,
         related_name='sections',
+        on_delete=models.CASCADE,
         verbose_name=_('event'),
-        help_text=_("to which event does the section belong?"),
-        on_delete=models.CASCADE
+        help_text=_("to which event does the section belong?")
     )
-    sessions = models.ManyToManyField(
+    session = models.ForeignKey(
         Session,
         related_name='sections',
-        verbose_name=_('sessions'),
-        help_text=_("in which session(s) this section will be held?")
+        on_delete=models.CASCADE,
+        verbose_name=_('session'),
+        help_text=_("in which session this section will be held?")
     )
     start_time = models.TimeField(
         verbose_name=_('start time'),
