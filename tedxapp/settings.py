@@ -139,5 +139,5 @@ CORS_ALLOW_HEADERS = (
 )
 
 GRAPHENE = {
-    'SCHEMA': 'texapp.schema.schema'
+    'SCHEMA': 'tedxapp.schema.schema'
 }
