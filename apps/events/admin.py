@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from apps.timelines.admin import EventDayInline
 from .models import EventType, Event, AboutEvent
 
 
@@ -42,9 +43,9 @@ class EventAdmin(admin.ModelAdmin):
     ]
     inlines = [
         EventLinkInline,
+        EventDayInline,
         AboutEventInline
     ]
-
 
 
 admin.site.register(EventType, EventTypeAdmin)
