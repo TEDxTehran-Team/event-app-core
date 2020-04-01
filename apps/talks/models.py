@@ -28,7 +28,14 @@ class Speaker(BaseModel, DescribedModelMixin):
         ordering = ["organizer", "title"]
 
 
-class Talk(Section):
+class Talk(BaseModel):
+    section = models.OneToOneField(
+        to=Section,
+        related_name='talk',
+        on_delete=models.CASCADE,
+        verbose_name=_('section'),
+        help_text=_("on which event section do we have the talk?"),
+    )
     speakers = models.ManyToManyField(
         to=Speaker,
         related_name='speakers',
@@ -51,9 +58,4 @@ class Talk(Section):
     class Meta:
         verbose_name = _("talk")
         verbose_name_plural = _("talks")
-        ordering = ["session", "ordering", "start_time", "title"]
-
-    def save(self, *args, **kwargs):
-        self.type = SectionType.TALK
-
-        return super().save(*args, **kwargs)
+        ordering = ["section"]

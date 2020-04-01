@@ -4,22 +4,20 @@ from apps.timelines.admin import SectionAdmin
 
 from .models import Speaker, Talk
 
+
 class SpeakerAdmin(admin.ModelAdmin):
     list_display = ['title', 'organizer']
     search_fields = ['title']
     autocomplete_fields = ['organizer']
 
 
-class TalkAdmin(SectionAdmin):
+class TalkAdmin(admin.ModelAdmin):
     list_display = [
-        'title',
-        'session'
+        'section'
     ]
     autocomplete_fields = [
-        'session',
-        'speakers'
+        'section'
     ]
-    exclude = ['type']
 
 
 admin.site.register(Speaker, SpeakerAdmin)
