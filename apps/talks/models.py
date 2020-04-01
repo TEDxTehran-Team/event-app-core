@@ -56,7 +56,7 @@ class Talk(Section):
     class Meta:
         verbose_name = _("talk")
         verbose_name_plural = _("talks")
-        ordering = ["event", "ordering", "start_time", "title"]
+        ordering = ["session", "ordering", "start_time", "title"]
 
     def __str__(self):
         return self.title

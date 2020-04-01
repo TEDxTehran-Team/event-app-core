@@ -64,13 +64,6 @@ class Session(BaseModel, DescribedModelMixin):
 class Section(BaseModel, OrderedModelMixin, DescribedModelMixin):
     DEAFAULT_TYPE = None
 
-    event = models.ForeignKey(
-        Event,
-        related_name='sections',
-        on_delete=models.CASCADE,
-        verbose_name=_('event'),
-        help_text=_("to which event does the section belong?")
-    )
     session = models.ForeignKey(
         Session,
         related_name='sections',
@@ -110,7 +103,7 @@ class Section(BaseModel, OrderedModelMixin, DescribedModelMixin):
     class Meta:
         verbose_name = _("section")
         verbose_name_plural = _("sections")
-        ordering = ["event", "start_time", "ordering"]
+        ordering = ["session", "start_time", "ordering"]
 
     def __str__(self):
         return self.title
