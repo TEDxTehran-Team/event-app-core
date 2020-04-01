@@ -85,8 +85,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = "/static/"
-
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
@@ -104,12 +102,6 @@ STATICFILES_FINDERS = (
 
 MEDIA_ROOT = BASE_DIR + '/media'
 MEDIA_URL = '/media/'
-
-STATICFILES_FINDERS = (
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    # "django.contrib.staticfiles.finders.DefaultStorageFinder",
-)
 
 LOCALE_PATHS = [
     BASE_DIR + "/locale/",
