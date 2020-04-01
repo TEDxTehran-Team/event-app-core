@@ -35,6 +35,7 @@ class EventDayAdmin(admin.ModelAdmin):
 
 class SessionAdmin(admin.ModelAdmin):
     list_display = [
+        'title',
         'day',
         'start_time',
         'end_time'
@@ -49,7 +50,7 @@ class SessionAdmin(admin.ModelAdmin):
 
 class SectionAdmin(admin.ModelAdmin):
     list_display = [
-        'event',
+        'title',
         'session',
         'type',
         'start_time',
@@ -58,12 +59,11 @@ class SectionAdmin(admin.ModelAdmin):
     search_fields = [
         'title',
         'session__title'
-        'event__title'
     ]
     list_filter = [
         'type'
     ]
-    autocomplete_fields = ['event','session']
+    autocomplete_fields = ['session']
 
 
 admin.site.register(EventDay, EventDayAdmin)

@@ -62,7 +62,7 @@ class Session(BaseModel, DescribedModelMixin):
 
 
 class Section(BaseModel, OrderedModelMixin, DescribedModelMixin):
-    DEAFAULT_TYPE = SectionType.GENERIC
+    DEAFAULT_TYPE = None
 
     event = models.ForeignKey(
         Event,
@@ -101,6 +101,7 @@ class Section(BaseModel, OrderedModelMixin, DescribedModelMixin):
     type = models.CharField(
         max_length=31,
         choices=SectionType.choices,
+        default=SectionType.GENERIC,
         verbose_name=_('type'),
         help_text=_(
             "shows type of this program section, whether it's a generic section, a talk or performance, an activity, or else.")
@@ -115,5 +116,7 @@ class Section(BaseModel, OrderedModelMixin, DescribedModelMixin):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.type = self.DEAFAULT_TYPE
+        if self.DEAFAULT_TYPE:
+            self.type = self.DEAFAULT_TYPE
+
         return super().save(*args, **kwargs)
