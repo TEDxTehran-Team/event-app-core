@@ -16,7 +16,8 @@ class TalkAdmin(admin.ModelAdmin):
         'section'
     ]
     autocomplete_fields = [
-        'section'
+        'section',
+        'speakers'
     ]
 
 
