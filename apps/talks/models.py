@@ -27,9 +27,6 @@ class Speaker(BaseModel, DescribedModelMixin):
         verbose_name_plural = _("speakers")
         ordering = ["organizer", "title"]
 
-    def __str__(self):
-        return self.title
-
 
 class Talk(Section):
     DEFAULT_TYPE = SectionType.TALK
@@ -57,6 +54,3 @@ class Talk(Section):
         verbose_name = _("talk")
         verbose_name_plural = _("talks")
         ordering = ["session", "ordering", "start_time", "title"]
-
-    def __str__(self):
-        return self.title
