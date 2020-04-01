@@ -16,6 +16,18 @@ class Organizer(BaseModel, DescribedModelMixin):
         null=True
     )
 
+    main_event = models.OneToOneField(
+        to='events.Event',
+        related_name='+',
+        on_delete=models.SET_NULL,
+        verbose_name=_("main event"),
+        help_text=_(
+            "which event is currently the main event for this organizer?"
+        ),
+        blank=True,
+        null=True
+    )
+
     class Meta:
         verbose_name = _("organizer")
         verbose_name_plural = _("organizers")

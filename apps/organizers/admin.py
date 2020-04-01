@@ -20,6 +20,7 @@ class OrganizerAdmin(admin.ModelAdmin):
         'title',
         'slug'
     ]
+    autocomplete_fields = ['main_event']
     
     inlines = [
         OrganizerAccountInline,
