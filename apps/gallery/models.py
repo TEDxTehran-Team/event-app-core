@@ -82,7 +82,7 @@ class Photo(Media):
 
 class Video(Media):
     video = models.FileField(
-        verbose_name=_('image'),
+        verbose_name=_('video'),
         help_text=_(
             "the main video file, if we're saving in in our own system."),
         blank=True,
