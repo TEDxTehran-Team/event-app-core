@@ -15,16 +15,13 @@ class ApplicationAdmin(admin.ModelAdmin):
         'title',
         'organizer'
     ]
-    list_filter = []
-    readonly_fields = []
-    filter_horizontal = []
     search_fields = [
         'title',
         'organizer__title',
         'slug'
     ]
-    exclude = []
     inlines = [ApplicationTokenInline]
+    autocomplete_fields = ['organizer']
 
 
 class ApplicationTokenAdmin(admin.ModelAdmin):
@@ -38,14 +35,12 @@ class ApplicationTokenAdmin(admin.ModelAdmin):
         'created_at',
         'key'
     ]
-    filter_horizontal = []
     search_fields = [
         'application__title',
         'application__slug',
         'key'
     ]
-    exclude = []
-
+    autocomplete_fields = ['application']
 
 admin.site.register(Application, ApplicationAdmin)
 admin.site.register(ApplicationToken, ApplicationTokenAdmin)
