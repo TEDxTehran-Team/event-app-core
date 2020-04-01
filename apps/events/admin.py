@@ -38,8 +38,8 @@ class EventAdmin(admin.ModelAdmin):
     ]
     autocomplete_fields = [
         'organizer',
-        'event_type'
-        # Todo add venue
+        'event_type',
+        'venue'
     ]
     inlines = [
         EventLinkInline,
