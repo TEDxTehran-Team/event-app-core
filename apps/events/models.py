@@ -57,15 +57,6 @@ class Event(BaseModel, DescribedModelMixin):
         null=True
     )
 
-    links = models.ManyToManyField(
-        to=Link,
-        related_name='+',
-        verbose_name=_('links'),
-        help_text=_(
-            "a set of links related to this event, such as website link, registration link, etc."
-        ),
-        blank=True
-    )
     venue = models.ForeignKey(
         to=Venue,
         related_name='events',
@@ -101,8 +92,23 @@ class Event(BaseModel, DescribedModelMixin):
         return self.title
 
 
+class EventLink(Link):
+    event = models.ForeignKey(
+        Event,
+        related_name='links',
+        on_delete=models.CASCADE,
+        verbose_name=_('event'),
+        help_text=_("to which event does the link belong?")
+    )
+
+    class Meta:
+        verbose_name = _("event link")
+        verbose_name_plural = _("event links")
+        ordering = ['event', 'ordering', 'created_at']
+
+
 class AboutEvent(BaseModel, OrderedModelMixin, DescribedModelMixin):
-    organizer = models.ForeignKey(
+    event = models.ForeignKey(
         Event,
         related_name='abouts',
         on_delete=models.CASCADE,
@@ -119,7 +125,7 @@ class AboutEvent(BaseModel, OrderedModelMixin, DescribedModelMixin):
     class Meta:
         verbose_name = _("about event")
         verbose_name_plural = _("abouts on events")
-        ordering = ["organizer", "ordering"]
+        ordering = ["event", "ordering"]
 
     def __str__(self):
         return self.title

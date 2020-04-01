@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from apps.timelines.admin import EventDayInline
-from .models import EventType, Event, AboutEvent
+from .models import EventType, Event, EventLink, AboutEvent
 
 
 class EventTypeAdmin(admin.ModelAdmin):
@@ -20,9 +20,8 @@ class AboutEventInline(admin.StackedInline):
 
 
 class EventLinkInline(admin.TabularInline):
-    model = Event.links.through
+    model = EventLink
     extra = 1
-    # todo add form to accept data here
 
 
 class EventAdmin(admin.ModelAdmin):
