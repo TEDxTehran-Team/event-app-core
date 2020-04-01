@@ -22,6 +22,7 @@ class AboutEventInline(admin.StackedInline):
 class EventLinkInline(admin.TabularInline):
     model = EventLink
     extra = 1
+    exclude = ['ordering']
 
 
 class EventAdmin(admin.ModelAdmin):
