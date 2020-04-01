@@ -3,6 +3,7 @@ from django.utils.translation import ugettext as _
 
 from apps.utils.models import BaseModel, OrderedModelMixin, DescribedModelMixin
 from apps.organizers.models import Organizer
+from apps.events.models import Event
 
 
 class Album(BaseModel, OrderedModelMixin, DescribedModelMixin):
@@ -12,6 +13,15 @@ class Album(BaseModel, OrderedModelMixin, DescribedModelMixin):
         verbose_name=_('organizer'),
         help_text=_("to which organizer does the album belong?"),
         on_delete=models.CASCADE
+    )
+    event = models.ForeignKey(
+        to=Event,
+        related_name='albums',
+        verbose_name=_('event'),
+        help_text=_("to which event does the album belong?"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
     )
 
     class Meta:
