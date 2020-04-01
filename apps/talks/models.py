@@ -29,8 +29,6 @@ class Speaker(BaseModel, DescribedModelMixin):
 
 
 class Talk(Section):
-    DEFAULT_TYPE = SectionType.TALK
-
     speakers = models.ManyToManyField(
         to=Speaker,
         related_name='speakers',
@@ -54,3 +52,8 @@ class Talk(Section):
         verbose_name = _("talk")
         verbose_name_plural = _("talks")
         ordering = ["session", "ordering", "start_time", "title"]
+
+    def save(self, *args, **kwargs):
+        self.type = SectionType.TALK
+
+        return super().save(*args, **kwargs)

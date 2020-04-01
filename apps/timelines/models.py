@@ -62,8 +62,6 @@ class Session(BaseModel, DescribedModelMixin):
 
 
 class Section(BaseModel, OrderedModelMixin, DescribedModelMixin):
-    DEAFAULT_TYPE = None
-
     session = models.ForeignKey(
         Session,
         related_name='sections',
@@ -107,9 +105,3 @@ class Section(BaseModel, OrderedModelMixin, DescribedModelMixin):
 
     def __str__(self):
         return self.title
-
-    def save(self, *args, **kwargs):
-        if self.DEAFAULT_TYPE:
-            self.type = self.DEAFAULT_TYPE
-
-        return super().save(*args, **kwargs)
