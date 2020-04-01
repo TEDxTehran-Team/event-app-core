@@ -5,9 +5,11 @@ from .models import Application, ApplicationToken
 
 class ApplicationTokenInline(admin.TabularInline):
     model = ApplicationToken
-    extra = 0
     readonly_fields = ['key']
     can_delete = True
+
+    def has_add_permission(self, *args, **kwargs):
+        return False
 
 
 class ApplicationAdmin(admin.ModelAdmin):

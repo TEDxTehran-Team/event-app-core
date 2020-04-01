@@ -27,8 +27,11 @@ class Application(BaseModel, DescribedModelMixin):
         verbose_name_plural = _("applications")
         ordering = ['organizer', 'title']
 
-    def __str__(self):
-        return self.title
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if not self.tokens.exists():
+            ApplicationToken.objects.create(application=self)
 
 
 class ApplicationToken(BaseModel):
@@ -42,7 +45,8 @@ class ApplicationToken(BaseModel):
     key = models.UUIDField(
         verbose_name=_('key'),
         help_text=_(
-            "a unique key sent in header to authorize the application."),
+            "a unique key sent in header to authorize the application."
+        ),
         unique=True,
         default=uuid.uuid4,
         editable=False
