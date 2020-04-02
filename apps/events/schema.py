@@ -2,7 +2,7 @@ import graphene
 
 from graphene_django.types import DjangoObjectType
 
-from .models import Event, EventLink, EventType
+from .models import Event, EventLink, EventType, AboutEvent
 
 
 class EventSchemaType(DjangoObjectType):
@@ -18,6 +18,11 @@ class EventTypeSchema(DjangoObjectType):
 class EventLinkSchemaType(DjangoObjectType):
     class Meta:
         model = EventLink
+
+
+class AboutEventSchemaType(DjangoObjectType):
+    class Meta:
+        model = AboutEvent
 
 
 class EventsQuery(object):
