@@ -6,6 +6,7 @@ from apps.gallery.schema import AlbumsQuery
 from apps.locations.schema import LocationsQuery
 from apps.talks.schema import TalksQuery
 from apps.timelines.schema import TimelinesQuery
+from apps.news.schema import NewsQuery
 
 
 class Query(
@@ -15,6 +16,7 @@ class Query(
         LocationsQuery,
         TalksQuery,
         TimelinesQuery,
+        NewsQuery,
         graphene.ObjectType):
     pass
 

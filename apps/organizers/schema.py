@@ -9,13 +9,24 @@ class OrganizerSchemaType(DjangoObjectType):
     class Meta:
         model = Organizer
 
-    logo_url = graphene.String(resolver=lambda my_obj, resolve_obj: my_obj.logo.url)
+    logo_url = graphene.String()
+
+    def resolve_logo_url(self, info):
+        if self.logo:
+            return self.logo.url
+        return None
 
 
 class AboutOrganizerSchemaType(DjangoObjectType):
     class Meta:
         model = AboutOrganizer
 
+    image_url = graphene.String()
+
+    def resolve_image_url(self, info):
+        if self.image:
+            return self.image.url
+        return None
 
 class OrganizersQuery(object):
     organizer = graphene.Field(OrganizerSchemaType,

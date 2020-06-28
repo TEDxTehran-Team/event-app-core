@@ -8,6 +8,19 @@ from .models import Event, EventLink, EventType
 class EventSchemaType(DjangoObjectType):
     class Meta:
         model = Event
+    
+    banner_url = graphene.String()
+    logo_url = graphene.String()
+
+    def resolve_banner_url(self, info):
+        if self.banner:
+            return self.banner.url
+        return None
+    
+    def resolve_logo_url(self, info):
+        if self.logo:
+            return self.logo.url
+        return None
 
 
 class EventTypeSchema(DjangoObjectType):
