@@ -14,15 +14,36 @@ class VideoSchema(DjangoObjectType):
     class Meta:
         model = Video
 
-    video_url = graphene.String(resolver=lambda  my_obj, resolve_obj: my_obj.image.url)
+    video_url = graphene.String()
+    thumbnail_url = graphene.String()
 
+    def resolve_video_url(self, info):
+        if self.video:
+            return self.video.url
+        return None
+    
+    def resolve_thumbnail_url(self, info):
+        if self.thumbnail:
+            return self.thumbnail.url
+        return None
+    
 
 class PhotoSchemaType(DjangoObjectType):
     class Meta:
         model = Photo
 
-    photo_url = graphene.String(resolver=lambda my_obj, resolve_obj: my_obj.image.url)
+    image_url = graphene.String()
+    thumbnail_url = graphene.String()
 
+    def resolve_image_url(self, info):
+        if self.image:
+            return self.image.url
+        return None
+    
+    def resolve_thumbnail_url(self, info):
+        if self.thumbnail:
+            return self.thumbnail.url
+        return None
 
 class AlbumsQuery(object):
     all_album = graphene.List(AlbumSchemaType)

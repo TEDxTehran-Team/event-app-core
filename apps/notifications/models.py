@@ -47,6 +47,7 @@ class News(BaseModel, OrderedModelMixin, DescribedModelMixin):
         verbose_name = _('news')
         verbose_name_plural = _('news')
         ordering = ['ordering', 'title']
+        abstract = True
 
     def __str__(self):
         return self.title

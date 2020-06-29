@@ -14,9 +14,29 @@ class SessionSchemaType(DjangoObjectType):
     class Meta:
         model = Session
 
+    image_url = graphene.String()
+
+    def resolve_image_url(self, info):
+        if self.image:
+            return self.image.url
+        return None
+
 class SectionSchemaType(DjangoObjectType):
     class Meta:
         model = Section
+
+    image_url = graphene.String()
+    cover_url = graphene.String()
+
+    def resolve_image_url(self, info):
+        if self.image:
+            return self.image.url
+        return None
+    
+    def resolve_cover_url(self, info):
+        if self.cover:
+            return self.cover.url
+        return None
 
 
 class TimelinesQuery(object):

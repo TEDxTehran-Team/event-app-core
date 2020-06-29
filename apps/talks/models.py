@@ -28,7 +28,7 @@ class Speaker(BaseModel, DescribedModelMixin):
         ordering = ["organizer", "title"]
 
 
-class Talk(BaseModel):
+class Talk(BaseModel, DescribedModelMixin):
     section = models.OneToOneField(
         to=Section,
         related_name='talk',
