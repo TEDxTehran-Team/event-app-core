@@ -1,3 +1,4 @@
+from apps.organizers.models import Organizer
 import graphene
 
 from graphene_django.types import DjangoObjectType
@@ -46,16 +47,23 @@ class PhotoSchemaType(DjangoObjectType):
         return None
 
 class AlbumsQuery(object):
-    all_album = graphene.List(AlbumSchemaType)
-    album = graphene.Field(AlbumSchemaType, id=graphene.Int(required=True))
-    album_by_organizer = graphene.List(AlbumSchemaType, organizer=graphene.Int(required=True))
-
-    def resolve_all_album(self, info, **kwargs):
-        return Album.objects.all()
+    albums = graphene.List(AlbumSchemaType, id=graphene.Int(), organizer=graphene.Int()) 
+    album = graphene.Field(AlbumSchemaType, id=graphene.Int(required=True), organizer=graphene.Int()) 
 
     def resolve_album(self, info, **kwargs):
-        return Album.objects.get(id=kwargs.get('id'))
+        organizer_id = kwargs.get('organizer', None)
+        if organizer_id is None:
+            organizer_id = Organizer.objects.first().id
 
-    def resolve_album_by_organizer(self, info, **kwargs):
-        id = kwargs.get('organizer')
-        return Album.objects.filter(organizer__id=id)
+        return Album.objects.get(id=kwargs.get('id'),organizer_id=organizer_id)
+
+
+    def resolve_albums(self, info, **kwargs):
+        organizer_id = kwargs.get('organizer', None)
+        if organizer_id is None:
+            organizer_id = Organizer.objects.first().id
+        id = kwargs.get('id')
+        if id:
+            return Album.objects.filter(id=kwargs.get('id'),organizer_id=organizer_id)
+        else:
+            return Album.objects.filter(organizer_id=organizer_id)

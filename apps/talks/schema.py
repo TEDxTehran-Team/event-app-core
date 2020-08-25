@@ -1,3 +1,6 @@
+from apps.events.schema import EventSchemaType
+from apps.organizers.models import Organizer
+from apps.events.models import Event
 import graphene
 import random 
 
@@ -29,65 +32,84 @@ class TalkSchemaType(DjangoObjectType):
 
 class TalksWithEventSchemaType(ObjectType):
     talks = graphene.List(TalkSchemaType)
-    event_id = graphene.Int()
+    event = graphene.Field(EventSchemaType)
 
     def resolve_talks(self, info, **kwargs):
-        return Talk.objects.filter(section__session__day__event_id=self.event_id)
+        return Talk.objects.filter(section__session__day__event_id=self.event.id)
 
+    def resolve_event(self, info, **kwargs):
+        return Event.objects.get(id=self.event.id)
 
 class TalksQuery(object):
-    all_talks = graphene.List(TalkSchemaType)
-    talk = graphene.Field(TalkSchemaType, id=graphene.Int(required=True))
-    talks_by_event = graphene.List(TalkSchemaType, event=graphene.Int(required=True))
-    talks_by_organizer = graphene.List(TalkSchemaType, organizer=graphene.Int(required=True))
-    talks_with_event_by_organizer = graphene.List(TalksWithEventSchemaType, organizer=graphene.Int(required=True))
-    speaker = graphene.Field(SpeakerSchema, id=graphene.Int(required=True))
-    speakers_by_organizer = graphene.List(SpeakerSchema, organizer=graphene.Int(required=True))
-    featured_talk = graphene.Field(TalkSchemaType, organizer=graphene.Int(required=True))
-    suggest_talk = graphene.Field(TalkSchemaType, talk=graphene.Int(required=True))
+    talk = graphene.Field(TalkSchemaType, id=graphene.Int(required=True), organizer=graphene.Int())    
+    talks = graphene.List(TalkSchemaType, id=graphene.Int(), organizer=graphene.Int())
+    talks_with_event = graphene.List(TalksWithEventSchemaType, organizer=graphene.Int())
 
-    def resolve_talks_with_event_by_organizer(self, info, **kwargs):
-        id = kwargs.get('organizer')
+    speaker = graphene.Field(SpeakerSchema, id=graphene.Int(required=True), organizer=graphene.Int())
+    speakers = graphene.List(SpeakerSchema, id=graphene.Int(), organizer=graphene.Int())
+    
+    featured_talk = graphene.Field(TalkSchemaType, organizer=graphene.Int())
+    suggested_talk = graphene.List(TalkSchemaType, talk=graphene.Int(required=True))
+
+    def resolve_talks_with_event(self, info, **kwargs):
+        orgnizer_id = kwargs.get('organizer', None)
+        if orgnizer_id is None:
+            orgnizer_id = Organizer.objects.first().id
         result = []
-        events = Talk.objects.filter(section__session__day__event__organizer_id=id)
-        print(len(events))
+        events = Event.objects.filter(organizer_id=orgnizer_id)
+
         for item in events:
             a = TalksWithEventSchemaType()
-            a.event_id = item.id
+            a.event = item
             result.append(a)
         
         return result
 
     def resolve_speaker(self, info, **kwargs):
-        return Speaker.objects.get(id=kwargs.get('id'))
-
-    def resolve_all_talks(self, info, **kwargs):
-        return Talk.objects.all()
+        organizer_id = kwargs.get('organizer', None)
+        if organizer_id is None:
+            organizer_id = Organizer.objects.first().id
+        
+        return Speaker.objects.get(id=kwargs.get('id'), organizer_id=organizer_id)
 
     def resolve_talk(self, info, **kwargs):
-        return Talk.objects.get(id=kwargs.get('id'))
+        organizer_id = kwargs.get('organizer', None)
+        if organizer_id is None:
+            organizer_id = Organizer.objects.first().id
 
-    def resolve_talks_by_event(self, info, **kwargs):
-        id = kwargs.get('event')
-        return Talk.objects.filter(section__session__day__event_id=id)
+        return Talk.objects.get(id=kwargs.get('id'),section__session__day__event__organizer_id=organizer_id)
 
-    def resolve_speakers_by_organizer(self, info, **kwargs):
-        id = kwargs.get('organizer')
-        return Speaker.objects.filter(organizer_id=id)
-    
-    def resolve_talks_by_organizer(self, info, **kwargs):
-        id = kwargs.get('organizer')
-        return Talk.objects.filter(section__session__day__event__organizer_id=id)
+    def resolve_talks(self, info, **kwargs):
+        organizer_id = kwargs.get('organizer', None)
+        if organizer_id is None:
+            organizer_id = Organizer.objects.first().id
+        id = kwargs.get('id')
+        if id:
+            return Talk.objects.filter(id=kwargs.get('id'),section__session__day__event__organizer_id=organizer_id)
+        else:
+            return Talk.objects.filter(section__session__day__event__organizer_id=organizer_id)
+
+
+    def resolve_speakers(self, info, **kwargs):
+        organizer_id = kwargs.get('organizer', None)
+        if organizer_id is None:
+            organizer_id = Organizer.objects.first().id
+        id = kwargs.get('id')
+        if id:
+            return Speaker.objects.filter(organizer_id=organizer_id, id=id)
+        else:
+            return Speaker.objects.filter(organizer_id=organizer_id)
 
     def resolve_featured_talk(self, info, **kwargs):
-        id = kwargs.get('organizer')
-        items = Talk.objects.filter(section__session__day__event__organizer_id=id)
+        organizer_id = kwargs.get('organizer')
+        if organizer_id is None:
+            organizer_id = Organizer.objects.first().id
+        items = Talk.objects.filter(section__session__day__event__organizer_id=organizer_id)
         return random.choice(items)
 
-    def resolve_featured_talk(self, info, **kwargs):
-        items = Talk.objects.all()
-        return random.choice(items)
-
-
-    # def resolve_walks_with_event_by_organizer(self, info, **kwargs):
+    def resolve_suggested_talk(self, info, **kwargs):
+        talk_id = kwargs.get('talk')
+        organizer_id = Talk.objects.get(id=talk_id).section.session.day.event.organizer.id
+        items = Talk.objects.filter(section__session__day__event__organizer_id=organizer_id)
+        return [random.choice(items)]
 
