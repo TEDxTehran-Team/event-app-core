@@ -23,6 +23,12 @@ class Album(BaseModel, OrderedModelMixin, DescribedModelMixin):
         blank=True,
         null=True
     )
+    cover = models.ImageField(
+        verbose_name=_('cover'),
+        help_text=_("a cover image for the album."),
+        blank=True,
+        null=True
+    )
 
     class Meta:
         verbose_name = _('album')
