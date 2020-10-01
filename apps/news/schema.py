@@ -1,3 +1,4 @@
+from apps.organizers.models import Organizer
 import graphene
 from graphene_django.types import DjangoObjectType, ObjectType
 
@@ -14,13 +15,15 @@ class NewsSchemaType(DjangoObjectType):
         return None
 
 class NewsQuery(object):
-    all_news = graphene.List(NewsSchemaType)
-    news_by_organizer = graphene.List(NewsSchemaType, organizer=graphene.Int(required=True))
+    news = graphene.List(NewsSchemaType, organzier=graphene.Int(required=False), id=graphene.Int(required=False))
 
-    def resolve_all_news(self, info):
-        return News.objects.all()
-    
-    def resolve_news_by_organizer(self, info, **kwargs):
-        id = kwargs.get('organizer')
-        return News.objects.filter(organizer_id=id)
-    
+    def resolve_news(self, info, **kwargs):
+        organizer_id = kwargs.get('organizer')
+        if not organizer_id:
+            organizer_id = Organizer.objects.first().id
+
+        id = kwargs.get('id')
+        if id:
+            return News.objects.filter(organizer_id=organizer_id, id=id)
+        else:
+            return News.objects.filter(organizer_id=organizer_id)

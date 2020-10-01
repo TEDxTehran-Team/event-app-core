@@ -49,7 +49,7 @@ class TalksQuery(object):
     speakers = graphene.List(SpeakerSchema, id=graphene.Int(), organizer=graphene.Int())
     
     featured_talk = graphene.Field(TalkSchemaType, organizer=graphene.Int())
-    suggested_talk = graphene.List(TalkSchemaType, talk=graphene.Int(required=True))
+    suggested_talks = graphene.List(TalkSchemaType, talk=graphene.Int(required=True))
 
     def resolve_talks_with_event(self, info, **kwargs):
         orgnizer_id = kwargs.get('organizer', None)
@@ -107,7 +107,7 @@ class TalksQuery(object):
         items = Talk.objects.filter(section__session__day__event__organizer_id=organizer_id)
         return random.choice(items)
 
-    def resolve_suggested_talk(self, info, **kwargs):
+    def resolve_suggested_talks(self, info, **kwargs):
         talk_id = kwargs.get('talk')
         organizer_id = Talk.objects.get(id=talk_id).section.session.day.event.organizer.id
         items = Talk.objects.filter(section__session__day__event__organizer_id=organizer_id)
