@@ -1,3 +1,4 @@
+from apps.sponsors.schema import SponsorsQuery
 import graphene
 
 from apps.organizers.schema import OrganizersQuery
@@ -17,6 +18,7 @@ class Query(
         TalksQuery,
         TimelinesQuery,
         NewsQuery,
+        SponsorsQuery,
         graphene.ObjectType):
     pass
 

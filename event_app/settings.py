@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     "apps.gallery",
     "apps.notifications",
     "apps.attendees",
-    "apps.news"
+    "apps.news",
+    "apps.sponsors"
 ]
 
 MIDDLEWARE = [
