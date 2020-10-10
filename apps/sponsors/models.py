@@ -13,6 +13,12 @@ class SponsorsType(BaseModel, DescribedModelMixin):
 
 
 class Sponsors(BaseModel, DescribedModelMixin):
+    link = models.URLField(
+        verbose_name=_('link'),
+        help_text=_("an external link to the sponsor's website."),
+        blank=True,
+        null=True
+    )
     type = models.ForeignKey(
         to=SponsorsType,
         related_name="sponsors",
