@@ -1,3 +1,4 @@
+from event_app.utility import get_organizer
 from apps.events.schema import EventSchemaType
 from apps.organizers.models import Organizer
 from apps.events.models import Event
@@ -50,7 +51,7 @@ class SponsorsQuery(object):
 
     def resolve_sponsors(self, info, **kwargs):
         event_id = kwargs.get('event', None)
-        organizer_id = kwargs.get('organizer', None)
+        organizer_id = get_organizer(info)
         id = kwargs.get('id', None)
 
         if id:
@@ -58,12 +59,9 @@ class SponsorsQuery(object):
         if event_id:
             return Sponsors.objects.filter(event__id=event_id)
         
-        if organizer_id:
-            return Sponsors.objects.filter(organizer__id=organizer_id)
-        else:
-            organizer_id = Organizer.objects.first().id
-            return Sponsors.objects.filter(organizer__id=organizer_id)
-
+        
+        return Sponsors.objects.filter(organizer__id=organizer_id)
+    
     def resolve_sponsors_with_type(self, info, **kwargs):
         event_id = kwargs.get('event', None)
         types = SponsorsType.objects.all()

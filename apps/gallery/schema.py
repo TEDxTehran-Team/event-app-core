@@ -1,3 +1,4 @@
+from event_app.utility import get_organizer
 from apps.organizers.models import Organizer
 import graphene
 
@@ -51,17 +52,13 @@ class AlbumsQuery(object):
     album = graphene.Field(AlbumSchemaType, id=graphene.Int(required=True), organizer=graphene.Int()) 
 
     def resolve_album(self, info, **kwargs):
-        organizer_id = kwargs.get('organizer', None)
-        if organizer_id is None:
-            organizer_id = Organizer.objects.first().id
+        organizer_id = get_organizer(info)
 
         return Album.objects.get(id=kwargs.get('id'),organizer_id=organizer_id)
 
 
     def resolve_albums(self, info, **kwargs):
-        organizer_id = kwargs.get('organizer', None)
-        if organizer_id is None:
-            organizer_id = Organizer.objects.first().id
+        organizer_id = get_organizer(info)
         id = kwargs.get('id')
         if id:
             return Album.objects.filter(id=kwargs.get('id'),organizer_id=organizer_id)
