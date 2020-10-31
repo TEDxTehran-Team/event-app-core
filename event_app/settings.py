@@ -141,5 +141,8 @@ CORS_ALLOW_HEADERS = (
 )
 
 GRAPHENE = {
-    'SCHEMA': 'event_app.schema.schema'
+    'SCHEMA': 'event_app.schema.schema',
+    'MIDDLEWARE': (
+        'event_app.middleware.OrganizerMiddleware',
+    ),
 }
