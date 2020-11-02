@@ -1,3 +1,4 @@
+from event_app.utility import get_organizer
 import graphene
 
 from graphene_django.types import DjangoObjectType
@@ -38,12 +39,6 @@ class OrganizersQuery(object):
         return AboutOrganizer.objects.first()
 
     def resolve_organizer(self, info, **kwargs):
-        # todo return organizer based on the application
-        id = kwargs.get("id")
-        if id is not None:
-            try:
-                return Organizer.objects.get(id=id)
-            except Organizer.DoesNotExist:
-                return None
+        organizer_id = get_organizer(info)
+        return Organizer.objects.get(id=organizer_id)
 
-        return Organizer.objects.first()
