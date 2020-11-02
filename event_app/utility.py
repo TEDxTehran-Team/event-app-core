@@ -9,7 +9,7 @@ def get_organizer(info):
             app = ApplicationToken.objects.get(key=token)
             organizer_id = app.application.organizer.id
         except:
-            organizer_id = Organizer.objects.all().first().id
+            organizer_id = Organizer.objects.all().last().id
     else:
-        organizer_id = Organizer.objects.all().first().id
+        organizer_id = Organizer.objects.all().last().id
     return organizer_id
