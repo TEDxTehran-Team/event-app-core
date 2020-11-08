@@ -19,6 +19,24 @@ class News(BaseModel, DescribedModelMixin):
         blank=True,
         null=True
     )
+    image = models.ImageField(
+        verbose_name=_('image'),
+        help_text=_("an image for the news."),
+        blank=True,
+        null=True
+    )
+    date = models.DateTimeField(
+        verbose_name=_('date'),
+        help_text=_("news date"),
+        blank=True,
+        null=True
+    )
+    extra_link = models.URLField(
+        verbose_name=_('extra link'),
+        help_text=_("any extra link related to the talk?"),
+        blank=True,
+        null=True
+    )
 
     class Meta:
         verbose_name = _("news")

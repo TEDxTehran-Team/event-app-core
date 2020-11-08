@@ -61,6 +61,6 @@ class AlbumsQuery(object):
         organizer_id = get_organizer(info)
         id = kwargs.get('id')
         if id:
-            return Album.objects.filter(id=kwargs.get('id'),organizer_id=organizer_id)
+            return Album.objects.filter(id=kwargs.get('id'),organizer_id=organizer_id).order_by('-id')
         else:
-            return Album.objects.filter(organizer_id=organizer_id)
+            return Album.objects.filter(organizer_id=organizer_id).order_by('-id')
