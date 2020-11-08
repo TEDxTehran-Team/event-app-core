@@ -55,7 +55,7 @@ class TalksQuery(object):
     def resolve_talks_with_event(self, info, **kwargs):
         organizer_id = get_organizer(info)
         result = []
-        events = Event.objects.filter(organizer_id=organizer_id)
+        events = Event.objects.filter(organizer_id=organizer_id).order_by('-id')
 
         for item in events:
             a = TalksWithEventSchemaType()
