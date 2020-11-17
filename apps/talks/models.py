@@ -1,3 +1,4 @@
+from apps.events.models import Event
 from django.db import models
 from django.utils.translation import ugettext as _
 
@@ -15,6 +16,14 @@ class Speaker(BaseModel, DescribedModelMixin):
         help_text=_("to which organizer does the speaker belong?"),
         on_delete=models.CASCADE
     )
+    event = models.ForeignKey(
+        Event,
+        related_name='speakers',
+        verbose_name=_('event'),
+        help_text=_("to which event does the speaker belong?"),
+        null=True,
+        on_delete=models.CASCADE
+    )
     image = models.ImageField(
         verbose_name=_('image'),
         help_text=_("a thumbnail image for the speaker."),
@@ -28,7 +37,7 @@ class Speaker(BaseModel, DescribedModelMixin):
         ordering = ["organizer", "title"]
 
 
-class Talk(BaseModel):
+class Talk(BaseModel, DescribedModelMixin):
     section = models.OneToOneField(
         to=Section,
         related_name='talk',

@@ -8,7 +8,7 @@ from apps.organizers.models import Organizer
 
 
 class Venue(BaseModel, DescribedModelMixin):
-    adddress = models.TextField(
+    address = models.TextField(
         max_length=1023,
         verbose_name=_('address'),
         help_text=_("venue's address."),
