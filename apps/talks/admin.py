@@ -6,14 +6,16 @@ from .models import Speaker, Talk
 
 
 class SpeakerAdmin(admin.ModelAdmin):
-    list_display = ['title', 'organizer']
+    list_display = ['title', 'organizer', 'event']
     search_fields = ['title']
     autocomplete_fields = ['organizer']
 
 
 class TalkAdmin(admin.ModelAdmin):
     list_display = [
-        'section'
+        'section',
+        'title',
+
     ]
     autocomplete_fields = [
         'section',

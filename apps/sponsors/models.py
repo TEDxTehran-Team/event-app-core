@@ -2,10 +2,10 @@ from apps.events.models import Event
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from apps.utils.models import BaseModel, DescribedModelMixin
+from apps.utils.models import BaseModel, DescribedModelMixin, OrderedModelMixin
 from apps.organizers.models import Organizer
 
-class SponsorsType(BaseModel, DescribedModelMixin):
+class SponsorsType(BaseModel, DescribedModelMixin, OrderedModelMixin):
     class Meta:
         verbose_name = _("sponsor type")
         verbose_name_plural = _("sponsor types")

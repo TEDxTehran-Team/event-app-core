@@ -12,6 +12,7 @@ class SponsorsAdmin(admin.ModelAdmin):
 class SponsorTypesAdmin(admin.ModelAdmin):
     list_display = [
         'title',
+        'ordering'
     ]
 
 

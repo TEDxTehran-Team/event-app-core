@@ -64,7 +64,7 @@ class SponsorsQuery(object):
     
     def resolve_sponsors_with_type(self, info, **kwargs):
         event_id = kwargs.get('event', None)
-        types = SponsorsType.objects.all()
+        types = SponsorsType.objects.all().order_by('-ordering')
         list = []
         for item in types:
             sponsors = Sponsors.objects.filter(event__id=event_id, type=item)
