@@ -10,9 +10,16 @@ class NewsSchemaType(DjangoObjectType):
         model = News
     
     icon_url = graphene.String()
+    image_url = graphene.String()
+
     def resolve_icon_url(self, info):
         if self.icon:
             return self.icon.url
+        return None
+
+    def resolve_image_url(self, info):
+        if self.image:
+            return self.image.url
         return None
 
 class NewsQuery(object):
