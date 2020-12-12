@@ -28,6 +28,14 @@ class Organizer(BaseModel, DescribedModelMixin):
         null=True
     )
 
+    has_active_event = models.BooleanField(
+        default=False,
+        verbose_name=_("Has Active Event"),
+        help_text=_(
+            "Is there an active event for this organizer?"
+        )
+    )
+
     class Meta:
         verbose_name = _("organizer")
         verbose_name_plural = _("organizers")
