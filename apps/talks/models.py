@@ -57,6 +57,12 @@ class Talk(BaseModel, DescribedModelMixin):
         blank=True,
         null=True
     )
+    aparat_link = models.URLField(
+        verbose_name=_('Aparat link'),
+        help_text=_("Aparat link"),
+        blank=True,
+        null=True
+    )
     extra_link = models.URLField(
         verbose_name=_('extra link'),
         help_text=_("any extra link related to the talk?"),
