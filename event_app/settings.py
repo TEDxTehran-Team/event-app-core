@@ -146,3 +146,5 @@ GRAPHENE = {
     #     'event_app.middleware.OrganizerMiddleware',
     # ),
 }
+
+DEFAULT_ORGANIZER_ID = 1
