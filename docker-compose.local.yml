@@ -1,0 +1,20 @@
+version: "3.8"
+
+x-local-mount:
+  &local-mount
+  volumes:
+    - .:/opt/app
+
+services:
+  app:
+    command: >
+      gunicorn event_app.wsgi:application
+        --name app-gunicorn
+        --bind 0.0.0.0:8000
+        --workers 4
+        --worker-tmp-dir /dev/shm
+        --pythonpath "/opt/app"
+        --log-level=debug
+        --reload
+        --timeout 120
+    <<: *local-mount
