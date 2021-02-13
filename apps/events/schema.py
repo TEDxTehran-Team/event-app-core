@@ -9,8 +9,8 @@ class EventSchemaType(DjangoObjectType):
     class Meta:
         model = Event
     
-    banner_url = graphene.String()
-    logo_url = graphene.String()
+    banner_url = graphene.String(description="Image url of the banner field")
+    logo_url = graphene.String(description="Image url of the logo field")
 
     def resolve_banner_url(self, info):
         if self.banner:
@@ -39,7 +39,10 @@ class AboutEventSchemaType(DjangoObjectType):
 
 
 class EventsQuery(object):
-    event = graphene.Field(EventSchemaType, id=graphene.Int(required=True))
+    event_description = """
+    Retrieves Event data of the given id.
+    """
+    event = graphene.Field(EventSchemaType, id=graphene.Int(required=True), description=event_description)
     all_event = graphene.List(EventSchemaType)
     event_by_organizer = graphene.List(EventSchemaType, organization=graphene.Int(required=True))
 
