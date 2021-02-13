@@ -16,8 +16,8 @@ class VideoSchema(DjangoObjectType):
     class Meta:
         model = Video
 
-    video_url = graphene.String()
-    thumbnail_url = graphene.String()
+    video_url = graphene.String(description="Video url of the video field")
+    thumbnail_url = graphene.String(description="Image url of the thumbnail field")
 
     def resolve_video_url(self, info):
         if self.video:
@@ -34,8 +34,8 @@ class PhotoSchemaType(DjangoObjectType):
     class Meta:
         model = Photo
 
-    image_url = graphene.String()
-    thumbnail_url = graphene.String()
+    image_url = graphene.String(description="image url of the image field")
+    thumbnail_url = graphene.String(description="image url of the thumbnail field")
 
     def resolve_image_url(self, info):
         if self.image:
@@ -48,8 +48,16 @@ class PhotoSchemaType(DjangoObjectType):
         return None
 
 class AlbumsQuery(object):
-    albums = graphene.List(AlbumSchemaType, id=graphene.Int(), organizer=graphene.Int()) 
-    album = graphene.Field(AlbumSchemaType, id=graphene.Int(required=True), organizer=graphene.Int()) 
+    albums_description = """
+    Just like the album query. With only difference that if id is not provided, it will return the list of albums for the organizer.
+    """
+    albums = graphene.List(AlbumSchemaType, id=graphene.Int(), organizer=graphene.Int(), description = albums_description) 
+    album_description = """
+    Retrieves Album data of the given id. If organizer is provided, it will search among that organizer's
+    talks. Otherwise it will search among the talks of the organizer connected to the application token
+    sent by the client.
+    """
+    album = graphene.Field(AlbumSchemaType, id=graphene.Int(required=True), organizer=graphene.Int(), description=album_description) 
 
     def resolve_album(self, info, **kwargs):
         organizer_id = get_organizer(info)
