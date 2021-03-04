@@ -1,5 +1,5 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
 from apps.utils.models import BaseModel, OrderedModelMixin, DescribedModelMixin
@@ -47,7 +47,7 @@ class OrganizerAccount(BaseModel):
     Represents a user's access to an organizer's events in admin.
     """
     user = models.OneToOneField(
-        to=User,
+        to=settings.AUTH_USER_MODEL,
         related_name='organizer_account',
         on_delete=models.CASCADE,
         verbose_name=_("user"),

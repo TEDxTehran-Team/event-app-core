@@ -16,6 +16,7 @@ THIRD_PARTY_APPS = [
 ]
 
 PROJECT_APPS = [
+    "apps.accounts",
     "apps.utils",
     "apps.applications",
     "apps.organizers",

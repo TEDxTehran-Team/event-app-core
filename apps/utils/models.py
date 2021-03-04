@@ -1,5 +1,5 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from safedelete import SOFT_DELETE_CASCADE
 from safedelete.models import SafeDeleteModel
@@ -81,7 +81,7 @@ class Link(BaseModel, OrderedModelMixin):
         help_text=_('the url address for the link.')
     )
     created_by = models.ForeignKey(
-        to=User,
+        to=settings.AUTH_USER_MODEL,
         related_name='+',
         on_delete=models.CASCADE,
         verbose_name=_('user'),
