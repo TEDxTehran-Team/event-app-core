@@ -28,6 +28,17 @@ docker-compose exec app python manage.py migrate
 ## Contributing
 Feel free to submit any pull request that improves this project in any possible way. Before undertaking a major change, consider opening an issue for some discussion.
 
+## Roadmap
+Here are the list of features we intend to include in this project. The ones that are checked have been finished.
+
+- [x] Event Management (including talks, speakers, timeline, gallary and sponsors)
+- [x] Preparing the project for running on Docker
+- [ ] Model Structure in UML
+- [ ] User Profile and Login
+- [ ] In-app Networking ( Chat )
+- [ ] Eventday Check-in
+
+
 ## Other Open-Source Projects
 - [iOS application](https://github.com/TEDxTehran-Team/event-app-ios)
 - [Android application](https://github.com/TEDxTehran-Team/event-app-andoid)
