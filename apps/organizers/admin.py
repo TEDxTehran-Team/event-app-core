@@ -15,7 +15,7 @@ class AboutOrganizerInline(admin.StackedInline):
 
 
 class OrganizerAdmin(admin.ModelAdmin):
-    list_display = ['title']
+    list_display = ['title', 'has_active_event']
     search_fields = [
         'title',
         'slug'

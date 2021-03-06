@@ -14,7 +14,7 @@ class SessionSchemaType(DjangoObjectType):
     class Meta:
         model = Session
 
-    image_url = graphene.String()
+    image_url = graphene.String(description="Image url for the image field")
 
     def resolve_image_url(self, info):
         if self.image:
@@ -25,8 +25,8 @@ class SectionSchemaType(DjangoObjectType):
     class Meta:
         model = Section
 
-    image_url = graphene.String()
-    cover_url = graphene.String()
+    image_url = graphene.String(description="Image url for the image field")
+    cover_url = graphene.String(description="Image url for the cover field")
 
     def resolve_image_url(self, info):
         if self.image:
@@ -40,10 +40,23 @@ class SectionSchemaType(DjangoObjectType):
 
 
 class TimelinesQuery(object):
-
-    event_day = graphene.Field(EventDaySchemaType, id=graphene.Int(), event=graphene.Int())
-    session = graphene.Field(SessionSchemaType, id=graphene.Int(required=True))
-    section = graphene.Field(SectionSchemaType, id=graphene.Int(required=True))
+    event_day_description = """
+    Returns EventDay object if id is provided otherwise a list of EventDays. If event is provided, it will search among that Event's
+    EventDays.
+    """
+    event_day = graphene.Field(
+        EventDaySchemaType,
+        id=graphene.Int(description="EventDay Id"),
+        event=graphene.Int(description="Event Id"),
+        description=event_day_description)
+    session_description = """
+    Returns Session with a given ID
+    """
+    session = graphene.Field(SessionSchemaType, id=graphene.Int(required=True, description="Session Id"), description=session_description)
+    section_description = """
+    Returns Section with a given ID
+    """
+    section = graphene.Field(SectionSchemaType, id=graphene.Int(required=True, description="Section Id"), description=section_description)
 
     def resolve_session(self, info, **kwargs):
         return Session.objects.get(id=kwargs.get('id'))

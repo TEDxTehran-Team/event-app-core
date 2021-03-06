@@ -1,0 +1,47 @@
+version: "3.8"
+
+x-app-common:
+  &app-common
+  image: event_app:latest
+  build: .
+  env_file:
+    - .env.${APP_ENV}
+  networks:
+    - db
+    - cache
+
+services:
+  app:
+    <<: *app-common
+    command: >
+      gunicorn event_app.wsgi:application
+        --name app-gunicorn
+        --bind 0.0.0.0:8000
+        --workers 4
+        --worker-tmp-dir /dev/shm
+        --pythonpath "/opt/app"
+        --log-level=info
+        --timeout 120
+    ports:
+      - ${APP_PORT}:8000
+
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env.${APP_ENV}
+    networks:
+      - db
+
+  memcached:
+    image: memcached:1-alpine
+    networks:
+      - cache
+
+volumes:
+  postgres_data:
+
+networks:
+  db:
+  cache:

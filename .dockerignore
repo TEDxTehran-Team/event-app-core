@@ -1,3 +1,10 @@
+/.git
+/.dockerignore
+.gitignore
+Dockerfile
+docker-compose.yml
+docker-compose.*.yml
+
 /.project
 /.pydevproject
 /.settings
@@ -6,7 +13,9 @@
 /.venv
 /.env
 /.env.local
+/.env.local.example
 /.env.production
+/.env.production.example
 /.vscode
 /env
 /staticfiles

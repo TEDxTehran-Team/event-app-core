@@ -30,10 +30,18 @@ class AboutOrganizerSchemaType(DjangoObjectType):
         return None
 
 class OrganizersQuery(object):
+    organizer_description = """
+    To get organizer Data. If id is provided, it will return the data corresponding to that organizer.
+    Otherwise it will return the organizer connected to the application token sent by the client
+    """
     organizer = graphene.Field(OrganizerSchemaType,
-                               id=graphene.Int())
+                               id=graphene.Int(), description=organizer_description)
 
-    about_organizer = graphene.Field(AboutOrganizerSchemaType)
+    about_organizer_description = """
+    To the organizer's about Data. If id is provided, it will return the data corresponding to that organizer.
+    Otherwise it will return the organizer connected to the application token sent by the client
+    """
+    about_organizer = graphene.Field(AboutOrganizerSchemaType, description=about_organizer_description)
 
     def resolve_about_organizer(self, info, **kwargs):
         return AboutOrganizer.objects.first()

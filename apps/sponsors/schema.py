@@ -32,21 +32,34 @@ class SponsorSchemaType(DjangoObjectType):
         return None
 
 class SponsorsWithTypeSchemaType(ObjectType):
-    sponsors = graphene.List(SponsorSchemaType)
-    type = graphene.Field(SponsorTypeSchemaType)
+    sponsors = graphene.List(SponsorSchemaType, description="Event sponsors list")
+    type = graphene.Field(SponsorTypeSchemaType, description="Sponsor Type")
 
 
 class SponsorsQuery(object):
+    sponsors_description = """
+    Returns the sponsors list of a given event or organizer or returns a single sponser if the Id is provided.
+    It first checks whether the sponser Id is provided. If not then it checks for the event Id. Finaly it checks
+    for the organizer Id and if that was not provided, this query returns the sponsors list of the organizer that
+    is connected to the application token provided by the client.
+    """
     sponsors = graphene.List(
         SponsorSchemaType,
-        id=graphene.Int(required=False),
-        organizer=graphene.Int(required=False),
-        event=graphene.Int(required=False),
+        id=graphene.Int(required=False, description="Sponsor's Id"),
+        organizer=graphene.Int(required=False, description="Organizer's Id"),
+        event=graphene.Int(required=False, description="Event's Id"),
+        description=sponsors_description
     )
+
+    sponsors_with_type_description = """
+    Returns a list of sponsors and their corresponding types.
+    To be more exact, each item of the list contains an SponsorType object and a list of Sponsor objects
+    """
 
     sponsors_with_type = graphene.List(
         SponsorsWithTypeSchemaType,
-        event=graphene.Int(required=True)
+        event=graphene.Int(required=True, description="Event's Id"),
+        description=sponsors_with_type_description
     )
 
     def resolve_sponsors(self, info, **kwargs):
@@ -64,7 +77,7 @@ class SponsorsQuery(object):
     
     def resolve_sponsors_with_type(self, info, **kwargs):
         event_id = kwargs.get('event', None)
-        types = SponsorsType.objects.all()
+        types = SponsorsType.objects.all().order_by('-ordering')
         list = []
         for item in types:
             sponsors = Sponsors.objects.filter(event__id=event_id, type=item)

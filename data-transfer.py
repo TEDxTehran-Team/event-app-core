@@ -1,8 +1,10 @@
+from django.utils import translation
 from apps.gallery.models import Album, Photo, Video
 from apps.talks.models import Speaker, Talk
 from apps.timelines.models import EventDay, Section, Session
 from datetime import datetime
 from apps.organizers.models import Organizer
+from apps.news.models import News
 from apps.events.models import EventType, Event
 from apps.locations.models import Venue
 import json
@@ -185,10 +187,38 @@ def import_photo_video(data, translation):
         save_translation_id(translation, "photos", id, photo.id)
     write_translation(translation)
 
-# translation = read_translation()
+def import_news(data, translation):
+    for id, item in data["news"].items():
+        print(item["title"])
+        news = News.objects.create(
+            title=item["title"],
+            description=item["description"] or "",
+            image=item["image_url"] or None,
+            extra_link=item["external_url"] or "",
+            date=datetime.strptime(item["date"], '%Y-%m-%d %H:%M:%S%z'),
+            organizer_id=1
+        )
+        
+        save_translation_id(translation, "news", id, news.id)
+    write_translation(translation)
 
-# full_data = data_read("data.json")
-# import_photo_video(full_data, translation)
+
+
+
+def fix_talk_images(data, translation):
+    for id, item in data["talks"].items():
+        talk = Talk.objects.get(id=int(translation["talks"][id]))
+        talk.section.image=item["image_url"] or None
+        print(item["image_url"])
+        talk.save()
+        
+
+
+
+translation = read_translation()
+
+full_data = data_read("data.json")
+import_news(full_data, translation)
 
 
 
