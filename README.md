@@ -28,9 +28,11 @@ docker-compose exec app python manage.py migrate
 ## Demo
 You can visit the demo deployment of this project [here](http://demo-backend.tedxtehran.com:8000/)
 
-To access the admin panel use the following credentials:
+To access the [admin-panel](http://demo-backend.tedxtehran.com:8000/admin/) use the following credentials:
 * Username: admin
 * Password: admin
+
+To see the graphql documentation use the side bar [here](http://demo-backend.tedxtehran.com:8000/graphql/). You can also try out some queries.
 
 For now we have left the `debug=True` for ease of debug and usage.
 
