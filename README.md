@@ -25,6 +25,15 @@ docker-compose up
 docker-compose exec app python manage.py migrate
 ```
 
+## Demo
+You can visit the demo deployment of this project [here](http://demo-backend.tedxtehran.com:8000/)
+
+To access the admin panel use the following credentials:
+* Username: admin
+* Password: admin
+
+For now we have left the `debug=True` for ease of debug and usage.
+
 ## Contributing
 Feel free to submit any pull request that improves this project in any possible way. Before undertaking a major change, consider opening an issue for some discussion.
 
