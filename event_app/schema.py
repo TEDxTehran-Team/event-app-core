@@ -1,3 +1,5 @@
+from apps.authentication.mutations import AuthMutation
+from apps.authentication.schema import UserQuery, MeQuery
 from apps.sponsors.schema import SponsorsQuery
 import graphene
 
@@ -11,7 +13,16 @@ from apps.notifications.schema import NotificationsQuery
 from apps.news.schema import NewsQuery
 
 
+class Mutation(
+        AuthMutation,
+        graphene.ObjectType
+):
+    pass
+
+
 class Query(
+        UserQuery,
+        MeQuery,
         OrganizersQuery,
         EventsQuery,
         AlbumsQuery,
@@ -26,4 +37,4 @@ class Query(
     pass
 
 
-schema = graphene.Schema(query=Query)
+schema = graphene.Schema(query=Query, mutation=Mutation)
