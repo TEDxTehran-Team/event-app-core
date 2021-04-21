@@ -7,10 +7,7 @@ django-cors-headers==3.2.1
 django-safedelete==0.5.4
 djangorestframework==3.11.0
 djangorestframework-jwt==1.11.0
-graphene==2.1.8
-graphene-django==2.8.0
-graphql-core==2.3.1
-graphql-relay==2.0.1
+graphene-django==3.0.0b7
 isort==4.3.21
 jsonfield==2.0.2
 lazy-object-proxy==1.4.3
@@ -30,3 +27,5 @@ wrapt==1.11.2
 django-environ==0.4.5
 psycopg2-binary==2.8.6
 whitenoise==5.2.0
+django-graphql-jwt==0.3.2
+django-filter==2.4.0
