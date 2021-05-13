@@ -19,12 +19,12 @@ from .schema import UserNode
 
 class AuthenticateMixin(Output):
     """
-    Authenticate user with the field defined in the settings.
+    Start authentication process for the specified phone number.
 
-    Send account verification sms.
+    Sends account verification sms.
     """
 
-    token = graphene.String()
+    token = graphene.String(description="Identifies this specific login attempt - pass this token on the verify_authentication mutation")
 
     @classmethod
     def resolve_mutation(cls, root, info, **kwargs):
@@ -46,15 +46,15 @@ class AuthenticateMixin(Output):
 
 class VerifyAuthenticationMixin(Output):
     """
-    Verify user account code.
+    Verify the verification code passed by the user.
 
-    Receive the code that was sent by sms.
-    If the code is valid, make the user logged in.
+    If the code is valid, logs the user in and returns
+    token and refresh token and the user's details.
     """
 
     payload = GenericScalar()
-    token = graphene.String()
-    refresh_token = graphene.String()
+    token = graphene.String(description="OAuth authorization token")
+    refresh_token = graphene.String(description="OAuth refresh token")
     refresh_expires_in = graphene.Int()
     user = graphene.Field(UserNode)
 
