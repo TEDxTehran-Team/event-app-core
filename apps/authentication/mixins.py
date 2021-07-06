@@ -97,6 +97,6 @@ class VerifyOrRefreshOrRevokeTokenMixin(Output):
         try:
             return cls.parent_resolve(root, info, **kwargs)
         except JSONWebTokenExpired:
-            return cls(success=False, errors=Messages.EXPIRED_TOKEN)
+            return cls(success=False, errors=Messages.EXPIRED_TOKEN, payload={})
         except JSONWebTokenError:
-            return cls(success=False, errors=Messages.INVALID_TOKEN)
+            return cls(success=False, errors=Messages.INVALID_TOKEN, payload={})
