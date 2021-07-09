@@ -14,7 +14,7 @@ from .bases import Output
 from .constants import Messages
 from .forms import AuthenticateForm, VerifyAuthenticationForm
 from .models import AuthenticationAttempt
-from .schema import UserNode
+from ..accounts.schema import UserNode
 
 
 class AuthenticateMixin(Output):

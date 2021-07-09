@@ -1,5 +1,5 @@
+from apps.accounts.schema import UserQuery, MeQuery
 from apps.authentication.mutations import AuthMutation
-from apps.authentication.schema import UserQuery, MeQuery
 from apps.sponsors.schema import SponsorsQuery
 import graphene
 

@@ -4,8 +4,8 @@ import graphene
 from graphene_django.filter.fields import DjangoFilterConnectionField
 from graphene_django.types import DjangoObjectType
 
+from apps.authentication.settings import graphql_auth_settings as app_settings
 from . import mutations
-from .settings import graphql_auth_settings as app_settings
 
 
 class UserNode(DjangoObjectType):
