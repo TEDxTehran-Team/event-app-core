@@ -18,7 +18,16 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'accounts.User'
 
 GRAPHQL_AUTH = {
+    "EXPIRATION_ACTIVATION_TOKEN": timedelta(days=7),
+    "USER_NODE_EXCLUDE_FIELDS": ["password", "is_superuser"],
+    "USER_NODE_FILTER_FIELDS": {
+        "phone": ["exact"],
+        "email": ["exact"],
+        "is_active": ["exact"],
+    },
+    "CUSTOM_ERROR_TYPE": None,
     'SMS_BACKEND': 'apps.authentication.sms_backends.kaveh_negar.KavehNegar',
+    "CODE_LENGTH": 5,
 }
 
 GRAPHQL_JWT = {
