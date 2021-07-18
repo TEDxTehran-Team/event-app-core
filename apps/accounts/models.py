@@ -3,6 +3,8 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.networking.models import Interest
+
 
 class User(AbstractUser):
     USERNAME_FIELD = 'phone'
@@ -36,6 +38,33 @@ class User(AbstractUser):
         validators=[
             RegexValidator(r'^09\d{9}$'),
         ],
+    )
+
+    job_title = models.CharField(
+        _('job title'),
+        max_length=70,
+        blank=True,
+        null=True,
+    )
+
+    education_field = models.CharField(
+        _('education field'),
+        max_length=70,
+        blank=True,
+        null=True,
+    )
+
+    biography = models.TextField(
+        _('biography'),
+        max_length=5000,
+        blank=True,
+        null=True,
+    )
+
+    interests = models.ManyToManyField(
+        Interest,
+        related_name='users',
+        blank=True,
     )
 
     class Meta:

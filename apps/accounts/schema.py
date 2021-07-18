@@ -1,20 +1,15 @@
-from django.contrib.auth import get_user_model
-
 import graphene
-from graphene_django.filter.fields import DjangoFilterConnectionField
 from graphene_django.types import DjangoObjectType
 
+from apps.accounts.models import User
 from apps.authentication.settings import graphql_auth_settings as app_settings
-from . import mutations
 
 
 class UserNode(DjangoObjectType):
     class Meta:
-        model = get_user_model()
+        model = User
         filter_fields = app_settings.USER_NODE_FILTER_FIELDS
         exclude = app_settings.USER_NODE_EXCLUDE_FIELDS
-        interfaces = (graphene.relay.Node,)
-        skip_registry = True
 
     pk = graphene.Int()
 
@@ -26,12 +21,7 @@ class UserNode(DjangoObjectType):
         return queryset.select_related("status")
 
 
-class UserQuery(graphene.ObjectType):
-    user = graphene.relay.Node.Field(UserNode)
-    users = DjangoFilterConnectionField(UserNode)
-
-
-class MeQuery(graphene.ObjectType):
+class AccountsQuery(graphene.ObjectType):
     me = graphene.Field(UserNode)
 
     def resolve_me(self, info):
