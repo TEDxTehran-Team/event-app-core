@@ -1,7 +1,6 @@
 from re import sub
 
 from django.utils.deprecation import MiddlewareMixin
-from rest_framework.authtoken.models import Token
 
 from .models import Application, ApplicationToken, ApplicationHit
 

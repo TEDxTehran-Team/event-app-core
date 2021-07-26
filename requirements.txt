@@ -1,12 +1,9 @@
-aniso8601==7.0.0
 asgiref==3.2.3
 astroid==2.3.3
 autopep8==1.5
 Django==2.2.10
 django-cors-headers==3.2.1
 django-safedelete==0.5.4
-djangorestframework==3.11.0
-djangorestframework-jwt==1.11.0
 graphene-django==3.0.0b7
 isort==4.3.21
 jsonfield==2.0.2
@@ -15,7 +12,6 @@ mccabe==0.6.1
 Pillow==8.1.0
 promise==2.3
 pycodestyle==2.5.0
-PyJWT==1.7.1
 pylint==2.4.4
 pytz==2019.3
 Rx==1.6.1

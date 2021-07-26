@@ -11,7 +11,6 @@ DEFAULT_APPS = [
 
 THIRD_PARTY_APPS = [
     "graphene_django",
-    "rest_framework",
     "corsheaders",
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
 ]
