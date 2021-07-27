@@ -1,13 +1,9 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, UsernameField
-from django.contrib.auth import get_user_model
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 from .models import AuthenticationAttempt
-from .utils import flat_dict
-from .settings import graphql_auth_settings as app_settings
 from ..accounts.models import User
 
 
