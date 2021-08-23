@@ -39,5 +39,6 @@ GRAPHQL_JWT = {
 }
 
 AUTHENTICATION_BACKENDS = [
-    "apps.authentication.backends.GraphQLAuthBackend",
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
 ]
