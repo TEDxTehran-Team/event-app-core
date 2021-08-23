@@ -14,4 +14,5 @@ class ProfileForm(forms.ModelForm):
             'education_field',
             'biography',
             'interests',
+            'linkedin_id',
         )

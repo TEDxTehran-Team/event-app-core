@@ -67,12 +67,20 @@ class User(AbstractUser):
         blank=True,
     )
 
+    linkedin_id = models.CharField(
+        _('linkedin ID'),
+        max_length=500,
+        blank=True,
+        null=True,
+    )
+
     @property
     def does_need_profile_update(self):
         return (
             not self.job_title and
             not self.education_field and
             not self.biography and
+            not self.linkedin_id and
             not self.interests.exists()
         )
 
