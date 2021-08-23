@@ -1,5 +1,6 @@
 import graphene
 from graphene_django.types import DjangoObjectType
+from graphql_jwt.decorators import login_required
 
 from apps.accounts.models import User
 from apps.authentication.settings import graphql_auth_settings as app_settings
@@ -26,8 +27,6 @@ class UserNode(DjangoObjectType):
 class AccountsQuery(graphene.ObjectType):
     me = graphene.Field(UserNode)
 
+    @login_required
     def resolve_me(self, info):
-        user = info.context.user
-        if user.is_authenticated:
-            return user
-        return None
+        return info.context.user
