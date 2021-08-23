@@ -6,6 +6,8 @@ from apps.authentication.settings import graphql_auth_settings as app_settings
 
 
 class UserNode(DjangoObjectType):
+    does_need_profile_update = graphene.Boolean()
+
     class Meta:
         model = User
         filter_fields = app_settings.USER_NODE_FILTER_FIELDS

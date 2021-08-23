@@ -67,5 +67,14 @@ class User(AbstractUser):
         blank=True,
     )
 
+    @property
+    def does_need_profile_update(self):
+        return (
+            not self.job_title and
+            not self.education_field and
+            not self.biography and
+            not self.interests.exists()
+        )
+
     class Meta:
         db_table = 'auth_user'
