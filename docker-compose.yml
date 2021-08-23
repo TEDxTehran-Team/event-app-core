@@ -23,7 +23,7 @@ services:
         --log-level=info
         --timeout 120
     ports:
-      - ${APP_PORT}:8000
+      - ${APP_HOST}:${APP_PORT}:8000
 
   db:
     image: postgres:13-alpine
