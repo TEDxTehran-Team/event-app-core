@@ -47,7 +47,7 @@ class AuthenticationAttempt(models.Model):
     )
 
     def send_verification_code(self):
-        pydoc.locate(app_settings.SMS_BACKEND).send(
+        pydoc.locate(app_settings.SMS_BACKEND).send_verification_code(
             self.user.phone,
-            format_lazy(_('Your verification code is: {code}'), code=self.verification_code)
+            self.verification_code
         )

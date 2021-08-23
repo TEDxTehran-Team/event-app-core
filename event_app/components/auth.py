@@ -26,7 +26,7 @@ GRAPHQL_AUTH = {
         "is_active": ["exact"],
     },
     "CUSTOM_ERROR_TYPE": None,
-    'SMS_BACKEND': 'apps.authentication.sms_backends.kaveh_negar.KavehNegar',
+    'SMS_BACKEND': 'apps.authentication.sms_backends.kave_negar.KaveNegar',
     "CODE_LENGTH": 5,
 }
 
