@@ -9,5 +9,6 @@ from .components.drf import *  # noqa: F401
 from .components.email import *  # noqa: F401
 from .components.graphene import *  # noqa: F401
 from .components.i18n import *  # noqa: F401
+from .components.kavenegar import *  # noqa: F401
 from .components.middlewares import *  # noqa: F401
 from .components.templates import *  # noqa: F401

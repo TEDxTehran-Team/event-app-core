@@ -1,16 +1,10 @@
-aniso8601==7.0.0
 asgiref==3.2.3
 astroid==2.3.3
 autopep8==1.5
 Django==2.2.10
 django-cors-headers==3.2.1
 django-safedelete==0.5.4
-djangorestframework==3.11.0
-djangorestframework-jwt==1.11.0
-graphene==2.1.8
-graphene-django==2.8.0
-graphql-core==2.3.1
-graphql-relay==2.0.1
+graphene-django==2.15.0
 isort==4.3.21
 jsonfield==2.0.2
 lazy-object-proxy==1.4.3
@@ -18,7 +12,6 @@ mccabe==0.6.1
 Pillow==8.1.0
 promise==2.3
 pycodestyle==2.5.0
-PyJWT==1.7.1
 pylint==2.4.4
 pytz==2019.3
 Rx==1.6.1
@@ -30,3 +23,5 @@ wrapt==1.11.2
 django-environ==0.4.5
 psycopg2-binary==2.8.6
 whitenoise==5.2.0
+django-graphql-jwt==0.3.4
+django-filter==2.4.0

@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:experimental
 FROM python:3.9-slim AS builder
 
 WORKDIR /

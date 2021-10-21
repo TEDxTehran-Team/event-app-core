@@ -11,11 +11,13 @@ DEFAULT_APPS = [
 
 THIRD_PARTY_APPS = [
     "graphene_django",
-    "rest_framework",
     "corsheaders",
+    "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
 ]
 
 PROJECT_APPS = [
+    "apps.authentication",
+    "apps.accounts",
     "apps.utils",
     "apps.applications",
     "apps.organizers",
@@ -29,6 +31,7 @@ PROJECT_APPS = [
     "apps.attendees",
     "apps.news",
     "apps.sponsors",
+    "apps.networking",
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + PROJECT_APPS

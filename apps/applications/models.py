@@ -1,8 +1,8 @@
 import uuid
 
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext as _
-from django.contrib.auth.models import User
 
 from apps.utils.models import BaseModel, OrderedModelMixin, DescribedModelMixin
 from apps.organizers.models import Organizer
@@ -74,7 +74,7 @@ class ApplicationHit(BaseModel):
         help_text=_("which application user has used?"),
     )
     user = models.ForeignKey(
-        to=User,
+        to=settings.AUTH_USER_MODEL,
         related_name='hits',
         on_delete=models.CASCADE,
         verbose_name=_('user'),
