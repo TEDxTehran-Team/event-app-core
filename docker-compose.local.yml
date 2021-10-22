@@ -18,8 +18,6 @@ services:
         --reload
         --timeout 120
     <<: *local-mount
-    labels:
-      - "traefik.http.routers.event-app.rule=Host(`event.tedxtehran.test`)"
     networks:
       - traefik_proxy
   db:
