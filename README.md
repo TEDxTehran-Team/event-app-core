@@ -15,7 +15,7 @@ This is the repository hosting the code for **the backend of TEDxTehran's event 
 
 ## Deploy
 - Clone the repo:
-`git clone git@github.com:TEDxTehran-Team/event-app-ios.git`
+`git clone git@github.com:TEDxTehran-Team/event-app-core.git`
 - Copy .env.example to .env
 - Copy .env.local.example - or .env.production.example depending on where you are deploying - to .env.local
 - Add secret key and other data to the env files
@@ -26,13 +26,13 @@ docker-compose exec app python manage.py migrate
 ```
 
 ## Demo
-You can visit the demo deployment of this project [here](http://demo-backend.tedxtehran.com:8000/)
+You can visit the demo deployment of this project [here](https://demo.event-app-core.tedxtehran.com/)
 
-To access the [admin-panel](http://demo-backend.tedxtehran.com:8000/admin/) use the following credentials:
+To access the [admin-panel](https://demo.event-app-core.tedxtehran.com/admin/) use the following credentials:
 * Username: admin
 * Password: admin
 
-To see the graphql documentation use the side bar [here](http://demo-backend.tedxtehran.com:8000/graphql/). You can also try out some queries.
+To see the graphql documentation use the side bar [here](https://demo.event-app-core.tedxtehran.com/graphql/). You can also try out some queries.
 
 For now we have left the `debug=True` for ease of debug and usage.
 
@@ -45,8 +45,8 @@ Here are the list of features we intend to include in this project. The ones tha
 - [x] Event Management (including talks, speakers, timeline, gallary and sponsors)
 - [x] Preparing the project for running on Docker
 - [ ] Model Structure in UML
-- [ ] User Profile and Login
-- [ ] In-app Networking ( Chat )
+- [x] User Profile and Login
+- [x] In-app Networking ( Chat )
 - [ ] Eventday Check-in
 
 
