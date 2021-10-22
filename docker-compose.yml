@@ -9,6 +9,7 @@ x-app-common:
   networks:
     - db
     - cache
+    - redis
 
 services:
   app:
@@ -25,6 +26,14 @@ services:
     ports:
       - ${APP_HOST}:${APP_PORT}:8000
 
+  celery-worker:
+    <<: *app-common
+    command: python -m celery -A event_app worker
+
+  celery-beat:
+    <<: *app-common
+    command: python -m celery -A event_app beat
+
   db:
     image: postgres:13-alpine
     volumes:
@@ -33,6 +42,11 @@ services:
       - .env.${APP_ENV}
     networks:
       - db
+
+  redis:
+    image: redis:6
+    networks:
+      - redis
 
   memcached:
     image: memcached:1-alpine
@@ -45,3 +59,4 @@ volumes:
 networks:
   db:
   cache:
+  redis:
