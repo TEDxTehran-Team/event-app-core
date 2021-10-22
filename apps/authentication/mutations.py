@@ -1,7 +1,7 @@
 import graphene
 import graphql_jwt
 
-from .bases import MutationMixin, DynamicArgsMixin
+from event_app.graphql.bases import MutationMixin, DynamicArgsMixin
 from .mixins import (
     AuthenticateMixin,
     VerifyAuthenticationMixin,

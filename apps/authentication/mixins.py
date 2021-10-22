@@ -10,7 +10,7 @@ from graphql_jwt.refresh_token.shortcuts import refresh_token_lazy
 from graphql_jwt.settings import jwt_settings
 
 from apps.accounts.models import User
-from .bases import Output
+from event_app.graphql.bases import Output
 from .constants import Messages
 from .forms import AuthenticateForm, VerifyAuthenticationForm
 from .models import AuthenticationAttempt

@@ -1,11 +1,9 @@
-import abc
-
 import graphene
 
 from django.utils.module_loading import import_string
 
-from .types import ExpectedErrorType
-from .settings import graphql_auth_settings as app_settings
+from event_app.graphql.types import ExpectedErrorType
+from apps.authentication.settings import graphql_auth_settings as app_settings
 
 if app_settings.CUSTOM_ERROR_TYPE and isinstance(app_settings.CUSTOM_ERROR_TYPE, str):
     OutputErrorType = import_string(app_settings.CUSTOM_ERROR_TYPE)
