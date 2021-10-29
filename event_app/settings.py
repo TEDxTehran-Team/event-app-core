@@ -3,6 +3,7 @@ from .components.django import *  # noqa: F401
 from .components.apps import *  # noqa: F401
 from .components.auth import *  # noqa: F401
 from .components.celery import *  # noqa: F401
+from .components.chat import *  # noqa: F401
 from .components.config import *  # noqa: F401
 from .components.cors import *  # noqa: F401
 from .components.database import *  # noqa: F401

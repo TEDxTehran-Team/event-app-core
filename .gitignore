@@ -26,3 +26,4 @@ Thumbs.db
 local_settings.py
 .vscode
 docker-compose.override.yml
+celerybeat-schedule

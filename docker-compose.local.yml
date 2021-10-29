@@ -20,6 +20,13 @@ services:
     <<: *local-mount
     networks:
       - traefik_proxy
+
+  celery-worker:
+    <<: *local-mount
+
+  celery-beat:
+    <<: *local-mount
+
   db:
     ports:
       - ${POSTGRES_PORT}:5432
