@@ -31,6 +31,7 @@ GRAPHQL_AUTH = {
 }
 
 GRAPHQL_JWT = {
+    'JWT_PAYLOAD_HANDLER': 'apps.authentication.jwt.jwt_payload',
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
     'JWT_REUSE_REFRESH_TOKENS': True,
