@@ -1,6 +1,7 @@
 from apps.accounts.schema import AccountsQuery
 from apps.authentication.mutations import AuthMutation
 from apps.accounts.mutations import AccountsMutation
+from apps.networking.mutations import NetworkingMutation
 from apps.sponsors.schema import SponsorsQuery
 import graphene
 
@@ -18,6 +19,7 @@ from apps.networking.schema import NetworkingQuery
 class Mutation(
         AuthMutation,
         AccountsMutation,
+        NetworkingMutation,
         graphene.ObjectType
 ):
     pass
