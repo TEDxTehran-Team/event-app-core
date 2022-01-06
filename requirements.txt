@@ -27,5 +27,5 @@ django-graphql-jwt==0.3.4
 backoff==1.11.1
 requests==2.26.0
 django-filter==2.4.0
-celery==5.0.5
+celery==5.2.2
 redis==3.5.3
