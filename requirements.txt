@@ -1,7 +1,7 @@
 asgiref==3.2.3
 astroid==2.3.3
 autopep8==1.5
-Django==2.2.10
+Django==2.2.27
 django-cors-headers==3.2.1
 django-safedelete==0.5.4
 graphene-django==2.15.0
